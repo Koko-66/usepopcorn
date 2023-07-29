@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-// import "./index.css";
-// import App from "./App";
+import "./index.css";
+import App from "./App";
 // import StarRating from "./StarRating";
-import TextExpanderMain from "./TextExpander";
+// import TextExpanderMain from "./TextExpander";
 
 // function Test() {
 //   const [movieRating, setMovieRating] = useState(0);
@@ -18,8 +18,9 @@ import TextExpanderMain from "./TextExpander";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <TextExpanderMain />
-    {/* <App /> */}
+    <App />
+    {/* <TextExpanderMain /> */}
+    
     {/* <StarRating
       maxRating={"ssss"}
       messages={["terrible", "bad", "ok", "good", "great"]}
