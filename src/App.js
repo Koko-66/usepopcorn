@@ -49,7 +49,6 @@ const tempWatchedData = [
 ];
 
 const KEY = "5b1d8e1a";
-const query = "dracula";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -59,16 +58,35 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const query = "gggbkokolplplp";
 
   useEffect(function () {
     async function fetchMovies() {
-      setIsLoading(true);
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-      );
-      const data = await res.json();
-      setMovies(data.Search);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        setError("");
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+        );
+
+        if (!res.ok)
+          throw new Error(
+            "Something went wrong when fetching movies. Check your connection and try again."
+          );
+
+        const data = await res.json();
+        console.log(data);
+
+        if (data.Response === "False") throw new Error("No movies found");
+
+        setMovies(data.Search);
+      } catch (err) {
+        setError(err.message);
+        // console.error(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchMovies();
   }, []);
@@ -80,7 +98,11 @@ export default function App() {
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
+        <Box>
+          {isLoading && <Loader />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error} />}
+        </Box>
         <Box>
           <WatchedSummary watched={watched} />
           <WatchedMovieList watched={watched} />
@@ -168,9 +190,19 @@ function Box({ children }) {
 //     </div>
 //   );
 // }
-
+ 
 function Loader() {
   return <p className="loader">Loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+  console.log(`${message} in Error component`);
+  return (
+    <p className="error">
+      <span>⛔️</span>
+      {message}
+    </p>
+  );
 }
 
 function MovieList({ movies }) {
