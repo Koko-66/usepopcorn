@@ -22,11 +22,11 @@ root.render(
     {/* <TextExpanderMain /> */}
     
     {/* <StarRating
-      maxRating={"ssss"}
+      maxRating={4}
       messages={["terrible", "bad", "ok", "good", "great"]}
       defaultRating={3}
     />
-    <StarRating maxRating={5} color="blue" size={23} className="test" />
-    <Test /> */}
+    <StarRating maxRating={5} color="blue" size={23} className="test" /> */}
+    {/* <Test /> */}
   </React.StrictMode>
 );

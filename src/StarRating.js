@@ -24,7 +24,7 @@ StarRating.propTypes = {
 export default function StarRating({
   maxRating = 5,
   color = "#fcc419",
-  size = "48",
+  size = 48,
   className = "",
   messages = [],
   defaultRating = 0,
@@ -49,17 +49,17 @@ export default function StarRating({
     <div style={containerStyle} className={className}>
       <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
-          <span>
-            <Star
-              key={i}
-              onRate={() => handleRating(i + 1)}
-              full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
-              onHoverIn={() => setTempRating(i + 1)}
-              onHoverOut={() => setTempRating(0)}
-              color={color}
-              size={size}
-            />
-          </span>
+          // <span>
+          <Star
+            key={i}
+            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+            onSetRating={() => handleRating(i + 1)}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
+            color={color}
+            size={size}
+          />
+          // </span>
         ))}
       </div>
       <p style={textStyle}>
