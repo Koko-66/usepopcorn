@@ -30,11 +30,21 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched([...watched, movie]);
+    console.log(watched);
   }
 
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+  //create watched in local storage for manipulation later
+
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
 
   useEffect(
     function () {
@@ -439,7 +449,7 @@ function WatchedSummary({ watched }) {
 function WatchedMovieList({ watched, onDeleteWatched }) {
   return (
     <ul className="list">
-      {watched.map((movie) => (
+      {watched?.map((movie) => (
         <WatchedMovie
           movie={movie}
           key={movie.imdbID}
