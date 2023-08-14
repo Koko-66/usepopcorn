@@ -177,6 +177,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
   //Close movie on clicking escape
   useEffect(
     function () {
